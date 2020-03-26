@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Output, EventEmitter } from '@angular/core';
 
 import { products } from '../products';
 import { CartService } from '../cart.service';
@@ -11,6 +12,7 @@ import { CartService } from '../cart.service';
 })
 export class ProductDetailsComponent implements OnInit {
   product;
+  @Output() updateItemAmount = new EventEmitter();
 
   constructor(
     private route: ActivatedRoute,
@@ -27,6 +29,7 @@ export class ProductDetailsComponent implements OnInit {
   addToCart(product){
     this.cartService.addToCart(product);
     window.alert(product.name + ' has been added to the cart!');
+    this.cartService.getItemAmount();
   }
 
 }
