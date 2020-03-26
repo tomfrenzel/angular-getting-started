@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class CartService {
   items = [];
-
+  itemAmount = 0;
   addToCart(product){
     this.items.push(product);
   }
@@ -17,6 +17,15 @@ export class CartService {
   clearCart() {
     this.items = [];
     return this.items;
+  }
+
+  getItemAmount() {
+    for(var product in this.items) {
+      if (this.items.hasOwnProperty(product)) {
+        this.itemAmount++;
+      }
+    }
+    return this.itemAmount;
   }
 
   constructor() { }
