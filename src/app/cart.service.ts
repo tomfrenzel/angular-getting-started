@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   items = [];
-  itemAmount = 0;
+  
   addToCart(product){
     this.items.push(product);
   }
+
+  constructor(
+    private http: HttpClient
+  ) {}
 
   getItems() {
     return this.items;
@@ -19,15 +24,8 @@ export class CartService {
     return this.items;
   }
 
-  getItemAmount() {
-    for(var product in this.items) {
-      if (this.items.hasOwnProperty(product)) {
-        this.itemAmount++;
-      }
-    }
-    return this.itemAmount;
+  getShippingPrices() {
+    return this.http.get('/assets/shipping.json');
   }
-
-  constructor() { }
 
 }
